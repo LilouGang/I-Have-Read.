@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 // --- STYLES GLOBAUX ---
 const TITLE_STYLE = "font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border-b-2 border-black pb-2 font-serif tracking-tight";
@@ -438,42 +439,103 @@ export const CONTENT_ART_20 = (
   </>
 );
 
-// 21. Article XXI (MISSION 8 modifiée -> MISSION DOUBLON "LES")
-// Une erreur de "doublon" (stuttering) est cachée : "les les".
+// 21. Article XXI (MISSION 8 modifiée -> MISSION INTRUS "CHOUQUETTE")
+// Une liste de documents administratifs avec un intrus culinaire.
 export const CONTENT_ART_21 = (
   <>
-    <h3 className={TITLE_STYLE}>Article XXI. Conformité Réglementaire</h3>
+    <h3 className={TITLE_STYLE}>Article XXI. Pièces Justificatives</h3>
     <div className={TEXT_STYLE}>
       <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXI.1. Normes ISO.</span>
-        L'infrastructure est auditée annuellement selon les standards ISO 27001. L'Utilisateur s'engage à respecter scrupuleusement les 
-        {/* PIÈGE : Le mot "les" est écrit deux fois */}
-        &nbsp;les protocoles de sécurité définis dans l'annexe technique, sous peine de résiliation immédiate.
+        <span className={SUB_TITLE}>Art XXI.1. Dossier Administratif.</span>
+        La validation définitive du compte requiert la transmission des pièces suivantes en cours de validité :
       </p>
-      <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXI.2. Audit.</span>
-        L'Opérateur peut mandater un expert pour vérifier la conformité des installations du Client.
+      <ul className="list-disc pl-5 space-y-1 text-gray-800 text-sm">
+        <li>Copie d'une pièce d'identité (CNI ou Passeport).</li>
+        <li>Relevé d'Identité Bancaire (RIB) au format SEPA.</li>
+        <li>Justificatif de domicile de moins de 3 mois.</li>
+        <li>Extrait K-Bis (pour les professionnels).</li>
+        <li>Chouquette au sucre (format boulangerie).</li>
+        <li>Attestation de vigilance URSSAF.</li>
+      </ul>
+      <p className="mt-4">
+        <span className={SUB_TITLE}>Art XXI.2. Complétude.</span>
+        Tout dossier incomplet ou comportant une pièce non conforme sera rejeté.
       </p>
     </div>
   </>
 );
 
-// 22. Article XXII (MISSION 14 : Nombres Premiers)
-export const CONTENT_ART_22 = (
-  <>
-    <h3 className={TITLE_STYLE}>Article XXII. Conditions Tarifaires Spéciales</h3>
-    <div className={TEXT_STYLE}>
-      <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXII.1. Éligibilité.</span>
-        Des conditions préférentielles ("Tarif Partenaire") sont applicables selon une segmentation algorithmique.
-      </p>
-      <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXII.2. Sélection.</span>
-        Pour bénéficier de la remise de 15%, l'Utilisateur doit cocher, dans le formulaire joint, exclusivement les cases dont la valeur numérique correspond à un <strong>nombre premier</strong> (entier naturel supérieur à 1 n'admettant que deux diviseurs : 1 et lui-même). Toute erreur de sélection entraîne la facturation au prix fort.
-      </p>
-    </div>
-  </>
-);
+// 22. Article XXII (MISSION 22 : Nombres Premiers - STYLE CHECKBOX)
+export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: string) => void }) => {
+  // État des cases cochées
+  const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
+
+  // Liste des nombres affichés (1 à 12)
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  // Gestion du clic
+  const toggleNumber = (num: number) => {
+    setSelectedNumbers(prev => {
+      const newSelection = prev.includes(num)
+        ? prev.filter(n => n !== num) // Décocher
+        : [...prev, num].sort((a, b) => a - b); // Cocher et trier
+      
+      // Envoie la liste au validateur (ex: "2,3,5")
+      setInputValue(newSelection.join(","));
+      return newSelection;
+    });
+  };
+
+  return (
+    <>
+      <h3 className="font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border-b-2 border-black pb-2 font-serif tracking-tight">
+        Article XXII. Modulation Tarifaire
+      </h3>
+      <div className="text-[15px] text-gray-800 text-justify leading-relaxed font-serif">
+        <p className="mb-4">
+          <span className="font-bold text-gray-900 mr-2">Art XXII.1. Algorithme de Remise.</span>
+          L'application du tarif réduit est conditionnée par un test de sélection arithmétique.
+        </p>
+        <p className="mb-4">
+          <span className="font-bold text-gray-900 mr-2">Art XXII.2. Matrice de Sélection.</span>
+          Veuillez activer, dans la grille ci-dessous, <strong>exclusivement</strong> les options correspondant à des entiers naturels supérieurs à 1 n'admettant exactement que deux diviseurs entiers et positifs (1 et eux-mêmes).
+        </p>
+        
+        {/* FORMULAIRE STYLE PAPIER */}
+        <div className="my-6 p-4 border border-gray-400 bg-white">
+          <div className="border-b border-gray-300 pb-2 mb-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+            Annexe B - Options Tarifaires
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
+            {numbers.map((num) => (
+              <label 
+                key={num} 
+                className="flex items-center space-x-3 cursor-pointer group select-none"
+              >
+                {/* La vraie Checkbox */}
+                <input 
+                  type="checkbox" 
+                  className="w-5 h-5 border-2 border-gray-400 rounded-sm accent-black cursor-pointer"
+                  checked={selectedNumbers.includes(num)}
+                  onChange={() => toggleNumber(num)}
+                />
+                {/* Le numéro */}
+                <span className={`font-mono text-base group-hover:text-black ${selectedNumbers.includes(num) ? 'font-bold text-black' : 'text-gray-600'}`}>
+                  Option {num < 10 ? `0${num}` : num}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-500 italic">
+          Toute sélection incluant une valeur composite ou unitaire invalide l'offre.
+        </p>
+      </div>
+    </>
+  );
+};
 
 // 23. Article XXIII (FILLER - Confidentialité)
 export const CONTENT_ART_23 = (
@@ -514,6 +576,7 @@ export const CONTENT_ART_24 = (
 );
 
 // 25. Article XXV (MISSION 23 : Musique "LETTRE A ELISE")
+// SVG Ajusté pour Mi-Re#-Mi...
 export const CONTENT_ART_25 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXV. Propriété Sonore</h3>
@@ -522,9 +585,12 @@ export const CONTENT_ART_25 = (
         <span className={SUB_TITLE}>Art XXV.1. Jingle.</span>
         L'identité sonore de l'attente téléphonique est une œuvre protégée. L'Utilisateur reconnaît la séquence mélodique suivante comme étant la propriété exclusive de l'Opérateur :
       </p>
-      <div className="flex justify-center my-6 border border-gray-300 p-4 bg-white shadow-sm">
+      <div className="flex justify-center my-6 border border-gray-300 p-6 bg-white shadow-sm">
         {/* SVG : Lettre à Élise (Mi - Ré# - Mi - Ré# - Mi - Si - Ré - Do - La) */}
-        <svg width="300" height="70" viewBox="0 0 300 70">
+        {/* Position Y : Ligne du haut = 10, Ligne du bas = 50. */}
+        {/* Mi (aigu) est dans le 4e interligne (y=15 approx) */}
+        {/* Ré# est sur la 4e ligne (y=20 approx) */}
+        <svg width="300" height="60" viewBox="0 0 300 60">
            {/* Portée */}
            <line x1="0" y1="10" x2="300" y2="10" stroke="#999" strokeWidth="1"/>
            <line x1="0" y1="20" x2="300" y2="20" stroke="#999" strokeWidth="1"/>
@@ -532,20 +598,20 @@ export const CONTENT_ART_25 = (
            <line x1="0" y1="40" x2="300" y2="40" stroke="#999" strokeWidth="1"/>
            <line x1="0" y1="50" x2="300" y2="50" stroke="#999" strokeWidth="1"/>
            
-           {/* Notes (Haut = y petit) */}
-           {/* MI (aigu) */} <circle cx="30" cy="15" r="3.5" fill="black"/>
-           {/* RE# */}       <circle cx="50" cy="18" r="3.5" fill="black"/> <text x="42" y="22" fontSize="10" fontFamily="serif">♯</text>
-           {/* MI */}        <circle cx="70" cy="15" r="3.5" fill="black"/>
-           {/* RE# */}       <circle cx="90" cy="18" r="3.5" fill="black"/> <text x="82" y="22" fontSize="10" fontFamily="serif">♯</text>
-           {/* MI */}        <circle cx="110" cy="15" r="3.5" fill="black"/>
-           {/* SI */}        <circle cx="130" cy="30" r="3.5" fill="black"/>
-           {/* RE (becarre)*/}<circle cx="150" cy="22" r="3.5" fill="black"/>
-           {/* DO */}        <circle cx="170" cy="25" r="3.5" fill="black"/>
-           {/* LA */}        <circle cx="190" cy="35" r="3.5" fill="black"/>
+           {/* Notes */}
+           {/* MI (4e interligne) */} <circle cx="30" cy="15" r="3.5" fill="black"/>
+           {/* RE# (4e ligne) */}     <circle cx="60" cy="20" r="3.5" fill="black"/> <text x="50" y="24" fontSize="12" fontFamily="serif">♯</text>
+           {/* MI */}                 <circle cx="90" cy="15" r="3.5" fill="black"/>
+           {/* RE# */}                <circle cx="120" cy="20" r="3.5" fill="black"/> <text x="110" y="24" fontSize="12" fontFamily="serif">♯</text>
+           {/* MI */}                 <circle cx="150" cy="15" r="3.5" fill="black"/>
+           {/* SI (3e ligne) */}      <circle cx="180" cy="30" r="3.5" fill="black"/>
+           {/* RE (nat) (4e ligne) */} <circle cx="210" cy="20" r="3.5" fill="black"/> <text x="200" y="24" fontSize="12" fontFamily="serif">♮</text>
+           {/* DO (3e interligne) */} <circle cx="240" cy="25" r="3.5" fill="black"/>
+           {/* LA (2e interligne) */} <circle cx="270" cy="35" r="3.5" fill="black"/>
         </svg>
       </div>
       <p className="text-xs text-gray-500 text-center italic mb-4">
-        Toute diffusion publique sans redevance SACEM est interdite.
+        Fig 25.A - Séquence harmonique protégée.
       </p>
     </div>
   </>
@@ -561,9 +627,8 @@ export const CONTENT_ART_26 = (
         L'accès aux infrastructures souveraines nécessite une accréditation de niveau 3. Le niveau requis est indiqué sur la vignette de sécurité ci-dessous (Zone de marquage noire).
       </p>
       <div className="flex justify-center my-6">
-        {/* Image noire. Nécessite le fichier dans public/assets/secret_stamp.png */}
         <img 
-          src="/assets/secret_stamp.png" 
+          src="/assets/secret_stamp.jpg" 
           alt="Classification"
           className="border border-gray-900 shadow-sm w-64 select-none"
           draggable={false}
@@ -597,7 +662,7 @@ export const CONTENT_ART_27 = (
   </>
 );
 
-// 28. Article XXVIII (FILLER - Numérotation corrigée XXVIII.1)
+// 28. Article XXVIII (Erreur XXVIII.3)
 export const CONTENT_ART_28 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXVIII. Clause Résolutoire</h3>
@@ -606,8 +671,9 @@ export const CONTENT_ART_28 = (
         <span className={SUB_TITLE}>Art XXVIII.1. Manquement.</span>
         En cas d'inexécution par l'une des parties de ses obligations, le contrat sera résolu de plein droit 15 jours après l'envoi d'une mise en demeure restée infructueuse.
       </p>
+      {/* PIÈGE : Saut de numérotation direct à .3 */}
       <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXVIII.2. Effets.</span>
+        <span className={SUB_TITLE}>Art XXVIII.3. Effets.</span>
         La résolution entraîne la suspension immédiate des accès et la suppression définitive des données, sans préjudice des dommages et intérêts éventuels.
       </p>
     </div>
@@ -625,24 +691,29 @@ export const CONTENT_ART_29 = (
       </p>
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XXIX.2. Attribution de compétence.</span>
-        Tout litige sera porté devant le tribunal de district de Reykjavik. Aux fins de signification, les parties élisent domicile au greffe situé dans la zone administrative de l'aéroport international de la capitale, situé sur la péninsule de Reykjanes (plateforme géothermique, code OACI requis).
+        Tout litige sera porté devant le tribunal de district de Reykjavik. Aux fins de signification, les parties élisent domicile au greffe situé dans la zone administrative de l'aéroport international de la capitale (Code OACI requis pour l'identification de la plateforme).
       </p>
     </div>
   </>
 );
 
-// 30. Article XXX (MISSION 9 : ROT47 sans aide)
+// 30. Article XXX (MISSION 9 : ROT47 format Licence Key)
 export const CONTENT_ART_30 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXX. Signature Cryptographique</h3>
     <div className={TEXT_STYLE}>
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XXX.1. Empreinte.</span>
-        L'intégrité du présent document électronique est scellée par la chaîne de validation suivante (encodage ROT47 standard) :
+        L'intégrité du présent document est scellée par la clé de licence numérique suivante. Toute altération du code invalide le contrat.
       </p>
-      <div className="font-mono text-xs text-gray-700 bg-gray-100 p-3 border border-gray-300 break-all select-all">
-        DIGITAL_KEY: 4~5t 5t '2=:52E:@? i !#~%~4~Kt0~tvx
+      <div className="font-mono text-sm text-gray-800 bg-gray-100 p-4 border-2 border-dashed border-gray-400 text-center tracking-widest font-bold my-6">
+        [ 4~5t ] - [ 5t'2 ] - [ =:52 ] - [ E:@? ]
+        <br/>
+        [ !#~% ] - [ ~4~K ] - [ t0~ ] - [ tvx ]
       </div>
+      <p className="mb-4 text-justify">
+        L'utilisateur doit conserver cette clé (déchiffrée via ROT47) pour ses archives.
+      </p>
     </div>
   </>
 );

@@ -1,33 +1,40 @@
 import { RefObject } from 'react';
 
-interface Clause {
-  title: string;
-  text: string;
-}
+interface Clause { title: string; text: string; }
 
 interface DocumentViewerProps {
   scrollRef: RefObject<HTMLDivElement | null>;
   dynamicClauses: Clause[];
   baseContent: React.ReactNode;
+  children: React.ReactNode; 
 }
 
-export default function DocumentViewer({ scrollRef, dynamicClauses, baseContent }: DocumentViewerProps) {
+export default function DocumentViewer({ scrollRef, dynamicClauses, baseContent, children }: DocumentViewerProps) {
   return (
     <div 
-      ref={scrollRef} // On attache la ref ici
-      className="h-96 overflow-y-auto p-8 bg-white text-justify leading-relaxed font-serif text-lg border-b border-gray-200 scroll-smooth"
+      ref={scrollRef} 
+      className="h-[75vh] w-full overflow-y-auto p-12 bg-white text-justify leading-relaxed font-serif text-lg text-gray-800 scroll-smooth relative"
     >
-      {baseContent}
+      {/* Contenu de base */}
+      <div className="mb-4">
+        {baseContent}
+      </div>
 
-      {/* Affichage des clauses dynamiques */}
+      {/* Clauses dynamiques */}
       {dynamicClauses.map((clause, index) => (
-        <div key={index} className="mt-4 text-red-600 animate-pulse border-l-4 border-red-600 pl-4">
-          <h3 className="font-bold mb-2">{clause.title}</h3>
+        <div key={index} className="mt-6 mb-6 text-red-700 bg-red-50 p-4 border-l-4 border-red-600 animate-pulse">
+          <h3 className="font-bold font-sans mb-1 text-sm uppercase tracking-wider">{clause.title}</h3>
           <p>{clause.text}</p>
         </div>
       ))}
       
-      <p className="mt-8 text-center text-gray-400 text-sm">--- FIN DU DOCUMENT ---</p>
+      {/* On affiche ici les Inputs (ActionPanel) + La Barre de Contrôle (ControlBar) */}
+      <div className="mt-8">
+        {children}
+      </div>
+      
+      {/* Juste un petit espace vide final pour ne pas coller au bord */}
+      <div className="h-4"></div>
     </div>
   );
 }

@@ -23,20 +23,20 @@ export const ContentHeader = () => {
   return (
     <div className="mb-16 pb-8 border-b-4 border-gray-900">
       
-      {/* LIGNE SUPÉRIEURE */}
-      <div className="flex justify-end items-start mb-8">
-
-        <div className="flex flex-col items-center">
+      <div className="flex flex-col items-end">
           <div className="flex h-8 gap-0.5">
             {[...Array(25)].map((_, i) => (
-              <div key={i} className={`bg-black ${Math.random() > 0.5 ? 'w-0.5' : 'w-1'}`}></div>
+              <div 
+              key={i} 
+              className={`bg-black ${Math.sin(i * 1337) > 0 ? 'w-0.5' : 'w-1'}`}
+              ></div>
             ))}
           </div>
           <span className="text-[9px] font-mono mt-1 text-gray-500 tracking-widest">
-            REF: 8842-XB-99 // FR
+            REF : 8842-XB-99 // FR
           </span>
+          <div className="mt-8"></div>
         </div>
-      </div>
 
       {/* TITRE PRINCIPAL */}
       <div className="text-center mb-10">
@@ -53,7 +53,7 @@ export const ContentHeader = () => {
         
         <div className="border-b md:border-b-0 md:border-r border-gray-900 p-2 flex flex-col">
           <span className="text-gray-500 uppercase font-bold mb-1">Référence</span>
-          <span className="font-bold text-gray-900">CGS-2024-REV-FINAL-V3</span>
+          <span className="font-bold text-gray-900">CGS-2026-REV-FINAL</span>
         </div>
 
         {/* C'est ICI que la date s'affiche dynamiquement */}

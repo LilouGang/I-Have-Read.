@@ -6,6 +6,9 @@ import ControlBar from '@/components/ControlBar';
 import Logo from '@/components/Logo';
 import FleeingTitle from '@/components/FleeingTitle';
 
+// Import de l'icône Instagram uniquement (puisque ton logo sera une image)
+import { Instagram } from 'lucide-react';
+
 // Import de TOUS les contenus
 import { 
   ContentHeader, 
@@ -143,39 +146,49 @@ export default function Home() {
     }
   };
 
-  // --- DEBUG ONLY : Fonction pour sauter les niveaux ---
-  const jumpToLevel = (targetLevel: number) => {
-    setLevel(targetLevel);
-    setInputValue('');
-    setRules([]); 
-    addNewRule(targetLevel);
-  };
-
   // --- RENDU ---
   return (
     <main className="h-screen w-screen overflow-hidden bg-[#F3F4F6] font-sans text-gray-800 flex flex-col">
       {/* NAVBAR */}
       <nav className="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm shrink-0">
+        
+        {/* LOGO GAUCHE */}
         <div className="w-1/3"><Logo /></div>
+
+        {/* TITRE CENTRAL */}
         <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full max-w-lg">
-           {/* Si c'est fini, on affiche un message sobre */}
-           {level > 25 ? (
-             <span className="font-mono text-xs text-gray-400 tracking-widest uppercase">FIN DE SESSION</span>
-           ) : (
              <FleeingTitle />
-           )}
         </div>
-        {/* Indicateur de contexte */}
-        <div className="w-1/3 flex justify-end">
-             {level > 25 ? (
-                <div className="text-xs font-mono border px-2 py-1 rounded bg-gray-100 text-gray-500 border-gray-300">
-                  STATUS: 200 OK
-                </div>
-             ) : (
-                <div className="text-xs font-mono border px-2 py-1 rounded bg-gray-50 text-gray-400 border-gray-200">
-                   SECURE_CTX_{level}
-                </div>
-             )}
+
+        {/* LIENS DROITE (TON LOGO + INSTA) */}
+        <div className="w-1/3 flex justify-end items-center gap-6">
+            
+            {/* 1. TON LOGO PERSO (Portfolio) */}
+            {/* Mettre l'image 'logo.png' dans le dossier /public */}
+            <a 
+              href="https://killianlacaque.vercel.app/" // <-- LIEN PORTFOLIO
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="opacity-60 hover:opacity-100 transition-opacity transform hover:scale-110"
+              title="Portfolio"
+            >
+              <img 
+                src="/favicon.png"  // <-- CHANGE CE NOM PAR LE NOM DE TON FICHIER DANS 'public'
+                alt="Portfolio" 
+                className="w-6 h-6 object-contain" 
+              />
+            </a>
+
+            {/* 2. INSTAGRAM */}
+            <a 
+              href="https://www.instagram.com/killian.lcq_/" // <-- LIEN INSTA
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-pink-600 transition-colors transform hover:scale-110"
+              title="Instagram"
+            >
+              <Instagram className="w-6 h-6" />
+            </a>
         </div>
       </nav>
 
@@ -185,10 +198,9 @@ export default function Home() {
         
         {level > 25 ? (
           
-          /* ÉCRAN DE FIN SOBRE (Style Password Game / Formulaire Admin) */
+          /* ÉCRAN DE FIN */
           <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in max-w-2xl w-full">
             
-            {/* Ligne de séparation pure */}
             <div className="w-24 h-px bg-gray-400"></div>
 
             <div className="text-center space-y-4">
@@ -202,7 +214,7 @@ export default function Home() {
             </div>
 
             <div className="text-center space-y-1">
-              <p className="font-mono text-[10px] text-gray-400 uppercase tracking-widest">
+              <p className="font-mono text-[12px] text-gray-400 tracking-widest">
                 Horodatage : {new Date().toLocaleDateString()} — {new Date().toLocaleTimeString()}
               </p>
             </div>
@@ -210,16 +222,15 @@ export default function Home() {
             <div className="pt-8">
                <button 
                 onClick={() => window.location.reload()}
-                className="text-xs font-mono text-gray-500 hover:text-gray-900 border-b border-transparent hover:border-gray-900 transition-all pb-0.5"
+                className="text-sm font-mono text-gray-500 hover:text-gray-900 border-b border-transparent hover:border-gray-900 transition-all pb-0.5"
               >
                 Recommencer la procédure
               </button>
             </div>
-
           </div>
 
         ) : (
-          /* LE JEU (Niveaux 0 à 25) - Code identique */
+          /* LE JEU (Niveaux 0 à 25) */
           <div className="bg-white w-full max-w-5xl rounded-xl shadow-2xl overflow-hidden flex flex-col relative h-full max-h-[85vh]">
             
             {/* WINDOW HEADER */}
@@ -237,6 +248,8 @@ export default function Home() {
             {/* SCROLLABLE CONTENT */}
             <div ref={docRef} className="overflow-y-auto h-full p-16 scroll-smooth bg-white">
               <div className="max-w-3xl mx-auto shadow-sm min-h-250 border border-gray-100 p-10 bg-white mb-8">
+                
+                {/* HEADLINE AVEC DATE DYNAMIQUE */}
                 <ContentHeader />
                 
                 <div className="space-y-12">
@@ -278,14 +291,14 @@ export default function Home() {
                 {/* FOOTER DOCUMENT */}
                 <div className="mt-32 pt-8 border-t border-gray-200 text-center">
                   <p className="text-[10px] text-gray-400 font-mono">
-                    © 2024-2026. Tous droits réservés. Reproduction interdite.<br/>
+                    © 2025-2026 Killian Lacaque. Tous droits réservés. Reproduction interdite.<br/>
                   </p>
                 </div>
               </div>
 
               {/* ACTION PANEL */}
               <div className="pb-12 max-w-3xl mx-auto mt-4">
-                 {/* Cas particulier pour le niveau 14 (Primes) */}
+                 {/* Cas particulier pour le niveau 14 */}
                  {level === 14 ? (
                    <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm text-center italic rounded-sm">
                      ⚠ Action requise : Veuillez effectuer votre sélection directement dans l'Article XXII ci-dessus.

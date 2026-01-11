@@ -6,25 +6,73 @@ const TITLE_STYLE = "font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border
 const TEXT_STYLE = "text-[15px] text-gray-800 text-justify leading-relaxed font-serif";
 const SUB_TITLE = "font-bold text-gray-900 mr-2";
 
-// 0. EN-TÊTE
-export const CONTENT_HEADER = (
-  <>
-    <div className="text-center mb-20 pb-10 border-b-[5px] border-double border-gray-900">
-      <h1 className="text-4xl font-black uppercase tracking-widest mb-4 font-serif text-gray-900">
-        Conditions Générales de Service
-      </h1>
-      <div className="flex-col items-center gap-1 text-[11px] text-gray-600 uppercase tracking-widest font-mono border p-2 inline-block">
-        <span>Réf. Juridique : CGS-2024-REV-FINAL</span>
-        <span>Dernière mise à jour : 07/01/2026</span>
-        <span>Classification : PUBLIC RESTREINT</span>
+export const ContentHeader = () => {
+  const [currentDate, setCurrentDate] = useState("JJ/MM/AAAA");
+
+  useEffect(() => {
+    // Calcul de la date du jour côté client uniquement
+    const now = new Date();
+    const formatted = now.toLocaleDateString('fr-FR', {
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric'
+    });
+    setCurrentDate(formatted);
+  }, []);
+
+  return (
+    <div className="mb-16 pb-8 border-b-4 border-gray-900">
+      
+      {/* LIGNE SUPÉRIEURE */}
+      <div className="flex justify-end items-start mb-8">
+
+        <div className="flex flex-col items-center">
+          <div className="flex h-8 gap-0.5">
+            {[...Array(25)].map((_, i) => (
+              <div key={i} className={`bg-black ${Math.random() > 0.5 ? 'w-0.5' : 'w-1'}`}></div>
+            ))}
+          </div>
+          <span className="text-[9px] font-mono mt-1 text-gray-500 tracking-widest">
+            REF: 8842-XB-99 // FR
+          </span>
+        </div>
+      </div>
+
+      {/* TITRE PRINCIPAL */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-black uppercase tracking-widest mb-2 font-serif text-gray-900">
+          Conditions Générales
+        </h1>
+        <h2 className="text-xl font-medium uppercase tracking-[0.2em] font-serif text-gray-600">
+          d'Utilisation du Service
+        </h2>
+      </div>
+
+      {/* TABLEAU DE MÉTADONNÉES */}
+      <div className="grid grid-cols-1 md:grid-cols-2 border border-gray-900 text-[10px] md:text-xs font-mono bg-white">
+        
+        <div className="border-b md:border-b-0 md:border-r border-gray-900 p-2 flex flex-col">
+          <span className="text-gray-500 uppercase font-bold mb-1">Référence</span>
+          <span className="font-bold text-gray-900">CGS-2024-REV-FINAL-V3</span>
+        </div>
+
+        {/* C'est ICI que la date s'affiche dynamiquement */}
+        <div className="border-b md:border-b-0 md:border-r border-gray-900 p-2 flex flex-col">
+          <span className="text-gray-500 uppercase font-bold mb-1">Date d'application</span>
+          <span className="font-bold text-gray-900">{currentDate} (00:00 GMT)</span>
+        </div>
+      </div>
+
+      {/* PRÉAMBULE */}
+      <div className="mt-8 mb-12 p-6 bg-gray-50 border-l-4 border-gray-900 text-sm text-gray-800 text-justify font-serif shadow-sm leading-relaxed">
+        <strong className="block mb-2 font-bold uppercase text-xs tracking-wider text-gray-500">
+          Préambule
+        </strong>
+        L'utilisation des services de la plateforme (ci-après "l'Opérateur") vaut acceptation pleine, entière et sans réserve des présentes conditions. Le présent document constitue l'intégralité de l'accord synallagmatique entre les parties et annule tout engagement antérieur, écrit ou oral. L'Utilisateur déclare sur l'honneur disposer de la pleine capacité juridique, mentale et technique nécessaire à la compréhension de ce document.
       </div>
     </div>
-
-    <div className="mb-12 p-8 bg-gray-50 border-l-[6px] border-gray-900 text-sm text-gray-800 text-justify italic font-serif">
-      <strong>PRÉAMBULE :</strong> L'utilisation des services de la plateforme (ci-après "l'Opérateur") vaut acceptation pleine et entière des présentes conditions. Le présent document constitue l'intégralité de l'accord entre les parties et annule tout engagement antérieur. L'Utilisateur déclare sur l'honneur disposer de la capacité juridique, mentale et technique nécessaire à la compréhension de ce document.
-    </div>
-  </>
-);
+  );
+};
 
 // 1. Article I (FILLER - Définitions)
 export const CONTENT_ART_1 = (
@@ -136,7 +184,7 @@ export const CONTENT_ART_7 = (
   <>
     <h3 className={TITLE_STYLE}>Article VII. Politique de Confidentialité</h3>
     <div className={`${TEXT_STYLE} relative min-h-30`}>
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 select-none">
         <p className="mb-4">
           <span className={SUB_TITLE}>Art VII.1. Traceurs.</span>
           Nous utilisons des cookies de session. En cas de dysfonctionnement de l'interface de recueil du consentement (masquage involontaire), la validation manuelle de cette section s'effectue via la référence d'audit interne : <strong>PROCEDURE_RGPD</strong>.
@@ -167,7 +215,7 @@ export const CONTENT_ART_8 = (
         <span className={SUB_TITLE}>Art VIII.2. Caractère de la collecte.</span>
         La fourniture des données marquées d'un astérisque est obligatoire pour l'exécution du contrat. La fourniture des autres champs mentionnés dans le formulaire d'inscription est optionnelle.
         {/* PIÈGE : Blanc sur blanc, après le point final */}
-        <span className="text-white select-text selection:bg-black selection:text-white"> FACULTATIF</span>
+        <span className="text-white select-text selection:bg-black selection:text-white"> FACULTATIVE</span>
       </p>
     </div>
   </>
@@ -240,13 +288,13 @@ export const CONTENT_ART_12 = (
       </p>
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XII.2. Condition Suspensive.</span>
-        Nonobstant les dispositions précédentes, la validité de l'accord cadre est conditionnée par la lecture et l'acceptation expresse de la phrase interrogative suivante (l'apostrophe et le trait d'union sont comptabilisés comme des séparateurs distincts) :
+        Nonobstant les dispositions précédentes, la validité de l'accord cadre est conditionnée par la lecture et l'acceptation expresse de la phrase interrogative suivante :
       </p>
       {/* Phrase : "L'utilisateur s'engage-t-il à respecter l'ensemble des sous-clauses, c'est-à-dire celles d'aujourd'hui et d'avant-hier ?"
           Compte (si apostrophe/tiret = séparateur) : 25 mots.
       */}
       <div className="pl-6 border-l-[3px] border-gray-400 italic text-gray-900 text-sm my-4 font-serif select-none py-2 bg-gray-50">
-        "L'utilisateur s'engage-t-il à respecter l'ensemble des sous-clauses, c'est-à-dire celles d'aujourd'hui et d'avant-hier ?"
+        "L'utilisateur reconnaît-il l'obligation d'appliquer l'intégralité des sous-clauses dites “en-vigueur”, d'aujourd'hui, d'avant-hier et d'ores-et-déjà existantes ?"
       </div>
       <p className="mt-4">
         Toute réponse négative ou ambiguë à cette interrogation rhétorique entraînera la nullité immédiate du présent contrat.
@@ -269,11 +317,11 @@ export const CONTENT_ART_13 = (
         <span className={SUB_TITLE}>Art XIII.2. Modèle Économétrique.</span>
         Le taux annuel applicable (dénommé coefficient X) est indexé sur la volatilité du marché interbancaire. Il est déterminé par la résolution du système d'équations non-linéaires suivant (où X, Y et Z sont des variables entières positives) :
       </p>
-      <div className="bg-white border border-gray-300 p-6 font-serif text-base text-gray-900 my-6 shadow-sm w-fit mx-auto min-w-[200px]">
+      <div className="bg-white border border-gray-300 p-6 font-serif text-base text-gray-900 my-6 shadow-sm w-fit mx-auto min-w-50">
         <ul className="space-y-2 text-center">
-          <li>X + Y + Z = 17</li>
-          <li>X² - Y = 3</li>
-          <li>Z - Y = 2</li>
+          <li>Y = 2X - 2</li>
+          <li>Z = X + Y + 1</li>
+          <li>12X - 5Y + 2Z = 32</li>
         </ul>
       </div>
       <p className="mb-4">
@@ -284,34 +332,33 @@ export const CONTENT_ART_13 = (
   </>
 );
 
-// 14. Article XIV (MISSION 24 : Cémantix "DROIT")
-// Liste noyée dans un texte sur la compétence juridique.
+// 14. Article XIV (MISSION 24 : Cémantix "DROIT" / "JUSTICE")
+// Niveau plus difficile : Concepts abstraits et symboles uniquement.
 export const CONTENT_ART_14 = (
   <>
-    <h3 className={TITLE_STYLE}>Article XIV. Compétence Matérielle et Lexicale</h3>
+    <h3 className={TITLE_STYLE}>Article XIV. Compétence Matérielle et Sémantique</h3>
     <div className={TEXT_STYLE}>
       <p className="mb-4">
-        <span className={SUB_TITLE}>Art XIV.1. Domaine d'application.</span>
-        Le présent contrat est soumis aux règles de l'art et aux usages de la profession. Afin d'éviter toute ambiguïté interprétative, l'Utilisateur reconnaît que l'ensemble des termes listés ci-après relève d'un unique <strong>Concept Fondamental</strong> (ou Hyperonyme Juridique) qu'il lui appartient d'identifier pour valider sa compréhension du périmètre :
+        <span className={SUB_TITLE}>Art XIV.1. Champ lexical.</span>
+        Le présent contrat est soumis à une stricte interprétation terminologique. Afin de valider sa compréhension du périmètre, l'Utilisateur doit identifier le <strong>Concept Fondamental</strong> (ou Principe Recteur) qui relie logiquement l'ensemble des notions abstraites listées ci-après :
       </p>
       <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-800 border-y-2 border-gray-100 py-6 my-4 px-4 bg-gray-50/50">
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Tribunal de Grande Instance</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Juge d'Instruction</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Loi et Règlements</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Avocat à la Cour</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Magistrat du Siège</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Code Civil</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Constitution</span>
-        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Verdict Final</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Norme</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Sanction</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Équité</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Balance</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Obligation</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Preuve</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Litige</span>
+        <span className="flex items-center"><span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>Rectitude</span>
       </div>
       <p className="mb-4">
-        La maîtrise de ce champ sémantique est indispensable à la bonne exécution des prestations intellectuelles fournies.
+        Ce terme générique constitue la clé de voûte de l'architecture sociale et contractuelle ici présente.
       </p>
     </div>
   </>
 );
 
-// 15. Article XV (MISSION 6 : Mot "HURLUBERLU" en Comic Sans)
 // Texte très sérieux sur l'arbitrage.
 export const CONTENT_ART_15 = (
   <>
@@ -325,8 +372,8 @@ export const CONTENT_ART_15 = (
         <span className={SUB_TITLE}>Art XV.2. Clause de Déchéance.</span>
         Le médiateur se réserve le droit de mettre fin aux pourparlers si l'une des parties fait preuve d'une mauvaise foi caractérisée, adopte une posture d'obstruction systématique, ou manifeste un comportement que l'expert qualifierait d'
         {/* PIÈGE : Mot ridicule avec police ridicule au milieu d'une phrase sérieuse */}
-        <span style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }} className="text-md mx-1 font-bold text-gray-900">
-          HURLUBERLU
+        <span style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }} className="text-xs mx-1 font-bold text-gray-900">
+          UBUESQUE
         </span>
         incompatible avec la sérénité et le professionnalisme attendus lors des débats juridiques.
       </p>
@@ -334,8 +381,8 @@ export const CONTENT_ART_15 = (
   </>
 );
 
-// 16. Article XVI (MISSION 22 : Suite Logique J-F-M-A-M-J-[J])
-// Note supprimée, texte rallongé.
+// 16. Article XVI (MISSION 22 : Suite R-R-S-L-I-N-[T])
+// AUCUN INDICE. Le joueur doit deviner seul que c'est la dernière lettre des mois.
 export const CONTENT_ART_16 = (
   <>
     <h3 className={TITLE_STYLE}>Article XVI. Calendrier de Facturation et Cycles</h3>
@@ -345,11 +392,11 @@ export const CONTENT_ART_16 = (
         Sauf accord spécifique contraire, les factures sont émises et exigibles mensuellement, à date anniversaire. L'exercice comptable suit le calendrier grégorien standard.
       </p>
       <p className="mb-4">
-        <span className={SUB_TITLE}>Art XVI.2. Nomenclature Temporelle.</span>
-        Afin de faciliter l'archivage et l'audit, les cycles de facturation sont identifiés par un code alphabétique unique dérivé de la séquence mensuelle usuelle. Veuillez compléter la série logique ci-dessous pour déterminer l'index du semestre suivant :
+        <span className={SUB_TITLE}>Art XVI.2. Nomenclature Cryptographique.</span>
+        Afin de garantir l'anonymisation des périodes fiscales, les mois d'exercice sont remplacés par un index alphabétique de référence. Veuillez déduire et saisir le caractère manquant pour valider l'ouverture du prochain cycle :
       </p>
       <div className="border-2 border-gray-800 p-4 text-center font-mono text-xl tracking-[0.5em] my-6 w-2/3 mx-auto bg-gray-50 text-gray-900 font-bold">
-        J - F - M - A - M - J - [?]
+        R - R - S - L - I - N - [?]
       </div>
       <p className="mb-4">
         Cette codification est impérative pour tout échange avec le service comptabilité.
@@ -377,7 +424,6 @@ export const CONTENT_ART_17 = (
 );
 
 // 18. Article XVIII (MISSION 11 : Ordre Logique B-D-C-A)
-// Liste présentée comme un texte continu mal formaté.
 export const CONTENT_ART_18 = (
   <>
     <h3 className={TITLE_STYLE}>Article XVIII. Indemnisation et Continuité de Service</h3>
@@ -388,13 +434,21 @@ export const CONTENT_ART_18 = (
       </p>
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XVIII.2. Clauses en vrac.</span>
-        L'application des pénalités suit la logique contractuelle définie par les segments suivants :
+        L'application des pénalités suit la logique contractuelle définie par les segments suivants (à remettre dans l'ordre de la chaîne de causalité) :
       </p>
-      <div className="space-y-3 pl-6 border-l-4 border-gray-200 text-gray-800 bg-gray-50/30 p-4 rounded-r-md">
-        <p className="leading-snug">[A] "En conséquence de quoi, et par dérogation, aucune indemnité ne sera versée pour le préjudice indirect ou immatériel."</p>
-        <p className="leading-snug">[B] "L'Utilisateur accepte par principe la possibilité d'une interruption temporaire du service inhérente à la technique."</p>
-        <p className="leading-snug">[C] "Si toutefois cette interruption excède une durée continue et ininterrompue de trente (30) jours ouvrés."</p>
-        <p className="leading-snug">[D] "Toutefois, cette acceptation de principe ne vaut renonciation qu'aux dommages prévisibles et immédiats."</p>
+      <div className="space-y-3 pl-6 border-l-4 border-gray-200 text-gray-800 bg-gray-50/30 p-4 rounded-r-md font-serif text-sm">
+        <p className="leading-snug">
+          <strong>[A]</strong> "En conséquence de quoi, aucune indemnité ne sera versée, quelle que soit la nature du préjudice allégué."
+        </p>
+        <p className="leading-snug">
+          <strong>[B]</strong> "L'Utilisateur accepte par principe la possibilité d'une interruption temporaire du service inhérente à la technique."
+        </p>
+        <p className="leading-snug">
+          <strong>[C]</strong> "Et ce, y compris dans l'hypothèse critique où cette interruption excèderait une durée de trente (30) jours."
+        </p>
+        <p className="leading-snug">
+          <strong>[D]</strong> "Cette tolérance contractuelle s'applique sans réserve, nonobstant l'absence de notification préalable."
+        </p>
       </div>
       <p className="mt-4">
         La reconstruction de la chaîne de causalité est un prérequis administratif.
@@ -439,8 +493,8 @@ export const CONTENT_ART_20 = (
   </>
 );
 
-// 21. Article XXI (MISSION 8 modifiée -> MISSION INTRUS "CHOUQUETTE")
-// Une liste de documents administratifs avec un intrus culinaire.
+// data/content.tsx
+
 export const CONTENT_ART_21 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXI. Pièces Justificatives</h3>
@@ -454,12 +508,12 @@ export const CONTENT_ART_21 = (
         <li>Relevé d'Identité Bancaire (RIB) au format SEPA.</li>
         <li>Justificatif de domicile de moins de 3 mois.</li>
         <li>Extrait K-Bis (pour les professionnels).</li>
-        <li>Chouquette au sucre (format boulangerie).</li>
+        <li>Carte électorale (Dernier scrutin).</li>
         <li>Attestation de vigilance URSSAF.</li>
       </ul>
       <p className="mt-4">
         <span className={SUB_TITLE}>Art XXI.2. Complétude.</span>
-        Tout dossier incomplet ou comportant une pièce non conforme sera rejeté.
+        Tout dossier incluant une pièce dépourvue de photographie biométrique ou non recevable sera rejeté.
       </p>
     </div>
   </>
@@ -473,17 +527,25 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
   // Liste des nombres affichés (1 à 12)
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  // Gestion du clic
+  // Gestion du clic CORRIGÉE
   const toggleNumber = (num: number) => {
-    setSelectedNumbers(prev => {
-      const newSelection = prev.includes(num)
-        ? prev.filter(n => n !== num) // Décocher
-        : [...prev, num].sort((a, b) => a - b); // Cocher et trier
-      
-      // Envoie la liste au validateur (ex: "2,3,5")
-      setInputValue(newSelection.join(","));
-      return newSelection;
-    });
+    // 1. On calcule la nouvelle sélection basé sur l'état actuel 'selectedNumbers'
+    let newSelection;
+    
+    if (selectedNumbers.includes(num)) {
+      // Si déjà coché, on l'enlève
+      newSelection = selectedNumbers.filter(n => n !== num);
+    } else {
+      // Sinon on l'ajoute et on trie
+      newSelection = [...selectedNumbers, num].sort((a, b) => a - b);
+    }
+
+    // 2. On met à jour l'affichage local (les cases cochées)
+    setSelectedNumbers(newSelection);
+
+    // 3. On envoie la valeur au parent (Home) pour la validation
+    // C'est maintenant fait en dehors du callback de mise à jour, donc c'est valide.
+    setInputValue(newSelection.join(","));
   };
 
   return (
@@ -491,6 +553,7 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
       <h3 className="font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border-b-2 border-black pb-2 font-serif tracking-tight">
         Article XXII. Modulation Tarifaire
       </h3>
+      {/* ... Le reste du JSX ne change pas ... */}
       <div className="text-[15px] text-gray-800 text-justify leading-relaxed font-serif">
         <p className="mb-4">
           <span className="font-bold text-gray-900 mr-2">Art XXII.1. Algorithme de Remise.</span>
@@ -522,7 +585,7 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
                 />
                 {/* Le numéro */}
                 <span className={`font-mono text-base group-hover:text-black ${selectedNumbers.includes(num) ? 'font-bold text-black' : 'text-gray-600'}`}>
-                  Option {num < 10 ? `0${num}` : num}
+                  {num < 10 ? `0${num}` : num}
                 </span>
               </label>
             ))}
@@ -567,8 +630,8 @@ export const CONTENT_ART_24 = (
         <span className={SUB_TITLE}>Art XXIV.2. Hébergement.</span>
         Les données sont hébergées sur des serveurs sécurisés situés en Union Européenne. Directeur de la publication : M. Admin.
         {/* PIÈGE : 1px, non sélectionnable, non copiable */}
-        <span className="text-[1px] text-gray-200 ml-1 select-none pointer-events-none">
-          je certifie avoir une très bonne vue
+        <span className="text-[2px] text-gray-300 ml-1 select-none pointer-events-none">
+          Je certifie avoir une excellente vue.
         </span>
       </p>
     </div>
@@ -643,20 +706,27 @@ export const CONTENT_ART_26 = (
   </>
 );
 
-// 27. Article XXVII (MISSION 25 : Paradoxe Négations Multiples -> "ACCORD")
+// 27. Article XXVII (MISSION 25 : Labyrinthe Logique -> "ACCORD")
 export const CONTENT_ART_27 = (
   <>
-    <h3 className={TITLE_STYLE}>Article XXVII. Consentement Exprès</h3>
+    <h3 className={TITLE_STYLE}>Article XXVII. Consentement Réciproque et Paradoxal</h3>
     <div className={TEXT_STYLE}>
       <p className="mb-4">
-        <span className={SUB_TITLE}>Art XXVII.1. Validation Logique.</span>
-        Afin de s'assurer de la parfaite compréhension des enjeux, l'Utilisateur doit interpréter l'instruction conditionnelle suivante :
+        <span className={SUB_TITLE}>Art XXVII.1. Test de Logique Booléenne.</span>
+        La validation finale de ce dossier implique une capacité de discernement cognitif certifiée. L'Utilisateur est invité à analyser l'instruction conditionnelle suivante pour déterminer l'unique mention autorisée :
       </p>
-      <div className="bg-gray-50 border-l-[4px] border-gray-700 p-4 text-gray-900 text-sm font-medium my-4 leading-relaxed">
-        "Ne cochez pas la case mentionnant 'REFUS' si vous ne refusez pas de ne pas être en désaccord avec les conditions susmentionnées. Dans le cas contraire, ou si la condition précédente aboutit à une acceptation tacite, veuillez inscrire le terme 'ACCORD' dans le champ de validation."
+      
+      {/* LE TEXTE INFERNAL - Version "Mélangeur de mots" */}
+      <div className="bg-gray-50 border-l-4 border-gray-900 p-6 font-medium my-4 leading-loose shadow-inner text-sm text-justify font-serif text-gray-900 select-none">
+        "Il est strictement défendu de saisir la mention ACCORD, à moins qu'il ne soit établi que vous ne rejetez pas l'idée de ne pas refuser le REJET. 
+        <br/><br/>
+        Toutefois, si vous n'êtes pas sans ignorer que le REFUS de ne pas être en désaccord avec l'ACCORD constitue une double négation du REJET, alors il vous est interdit de ne pas écrire le contraire de ce que vous auriez refusé d'admettre en cas d'absence de REFUS.
+        <br/><br/>
+        Dans l'hypothèse où cette chaîne de causalité n'invalide pas votre volonté de ne pas rejeter l'adhésion, veuillez inscrire le terme qui survit à cette élimination logique."
       </div>
-      <p className="mb-4 text-xs text-gray-500">
-        Toute erreur d'interprétation vaudra nullité de l'adhésion.
+      
+      <p className="mb-4 text-xs text-gray-500 italic">
+        Avertissement : Une erreur de calcul logique entraînera la nullité du contrat pour vice du consentement.
       </p>
     </div>
   </>
@@ -707,13 +777,8 @@ export const CONTENT_ART_30 = (
         L'intégrité du présent document est scellée par la clé de licence numérique suivante. Toute altération du code invalide le contrat.
       </p>
       <div className="font-mono text-sm text-gray-800 bg-gray-100 p-4 border-2 border-dashed border-gray-400 text-center tracking-widest font-bold my-6">
-        [ 4~5t ] - [ 5t'2 ] - [ =:52 ] - [ E:@? ]
-        <br/>
-        [ !#~% ] - [ ~4~K ] - [ t0~ ] - [ tvx ]
+        ,rt#%xuxrp%0)d_h.
       </div>
-      <p className="mb-4 text-justify">
-        L'utilisateur doit conserver cette clé (déchiffrée via ROT47) pour ses archives.
-      </p>
     </div>
   </>
 );

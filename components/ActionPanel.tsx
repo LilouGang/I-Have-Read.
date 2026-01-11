@@ -10,10 +10,8 @@ interface ActionPanelProps {
 export default function ActionPanel({ 
   level, 
   inputValue, setInputValue,
-  triggerError
 }: ActionPanelProps) {
 
-  // --- LOGIQUE SPÉCIFIQUE MISSION 14 (CHECKBOXES / PRIMES) ---
   const [checkboxes, setCheckboxes] = useState<Record<number, boolean>>({});
   
   useEffect(() => {
@@ -37,33 +35,25 @@ export default function ActionPanel({
     setInputValue(selected);
   };
 
-  // --- LOGIQUE SPÉCIFIQUE MISSION 17 (CLAVIER INSTABLE) ---
   const handleCursedInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawVal = e.target.value;
     
-    // Si l'utilisateur efface, on laisse faire
     if (rawVal.length < inputValue.length) {
       setInputValue(rawVal);
       return;
     }
 
-    // Si l'utilisateur ajoute un caractère
     if (rawVal.length > inputValue.length) {
        const lastChar = rawVal.slice(-1);
        const lowerChar = lastChar.toLowerCase();
-       
-       // TABLE DE CORRUPTION RÉDUITE (Seulement A, I, O)
-       // L'utilisateur doit trouver la contre-touche pour obtenir la bonne voyelle.
        const corruptionMap: Record<string, string> = {
-         'a': 'q', 'q': 'a', // A <-> Q (Classique Azerty/Qwerty)
-         'i': '1', '1': 'i', // I <-> 1 (Classique visuel)
-         'o': '0', '0': 'o', // O <-> 0 (Zéro)
+         'a': 'q', 'q': 'a',
+         'i': '1', '1': 'i',
+         'o': '0', '0': 'o',
        };
 
-       // Si la lettre est piégée, on l'échange, sinon on garde l'originale
        let newChar = corruptionMap[lowerChar] || lowerChar;
 
-       // On préserve la casse (Majuscules)
        if (lastChar === lastChar.toUpperCase() && lastChar !== lastChar.toLowerCase()) {
          newChar = newChar.toUpperCase();
        }
@@ -72,7 +62,6 @@ export default function ActionPanel({
     }
   };
 
-  // --- GESTION DES LABELS ---
   const getLabel = () => {
     switch(level) {
       case 1: return "Rectifiez le terme mal orthographié";
@@ -109,17 +98,13 @@ export default function ActionPanel({
   return (
     <div className="space-y-4 animate-fade-in p-6 bg-white border border-gray-200 shadow-sm rounded-md">
       
-      {/* Label Standardisé */}
       <div className="flex items-center gap-2 mb-2">
         <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
         <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
           {getLabel()}
         </label>
       </div>
-
-      {/* Rendu Conditionnel des Inputs */}
       
-      {/* Cas 14 : Checkboxes */}
       {level === 14 ? (
         <div className="grid grid-cols-4 gap-2">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
@@ -137,11 +122,9 @@ export default function ActionPanel({
           ))}
         </div>
       ) : (
-        /* Cas Standard (incluant maintenant le Niv 17 visuellement identique) */
         <input 
           type={level === 3 || level === 18 || level === 19 ? "number" : "text"} 
           value={inputValue} 
-          /* Au niveau 17, on utilise la fonction maudite, sinon la normale */
           onChange={level === 17 ? handleCursedInput : (e) => setInputValue(e.target.value)} 
           placeholder="Saisie..." 
           className="w-full p-3 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all font-mono text-sm placeholder-gray-300" 

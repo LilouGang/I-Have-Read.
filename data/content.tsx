@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-// --- STYLES GLOBAUX ---
 const TITLE_STYLE = "font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border-b-2 border-black pb-2 font-serif tracking-tight";
 const TEXT_STYLE = "text-[15px] text-gray-800 text-justify leading-relaxed font-serif";
 const SUB_TITLE = "font-bold text-gray-900 mr-2";
@@ -10,7 +9,6 @@ export const ContentHeader = () => {
   const [currentDate, setCurrentDate] = useState("JJ/MM/AAAA");
 
   useEffect(() => {
-    // Calcul de la date du jour côté client uniquement
     const now = new Date();
     const formatted = now.toLocaleDateString('fr-FR', {
       day: '2-digit', 
@@ -38,7 +36,6 @@ export const ContentHeader = () => {
           <div className="mt-8"></div>
         </div>
 
-      {/* TITRE PRINCIPAL */}
       <div className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-black uppercase tracking-widest mb-2 font-serif text-gray-900">
           Conditions Générales
@@ -48,7 +45,6 @@ export const ContentHeader = () => {
         </h2>
       </div>
 
-      {/* TABLEAU DE MÉTADONNÉES */}
       <div className="grid grid-cols-1 md:grid-cols-2 border border-gray-900 text-[10px] md:text-xs font-mono bg-white">
         
         <div className="border-b md:border-b-0 md:border-r border-gray-900 p-2 flex flex-col">
@@ -56,14 +52,12 @@ export const ContentHeader = () => {
           <span className="font-bold text-gray-900">CGS-2026-REV-FINAL</span>
         </div>
 
-        {/* C'est ICI que la date s'affiche dynamiquement */}
         <div className="border-b md:border-b-0 md:border-r border-gray-900 p-2 flex flex-col">
           <span className="text-gray-500 uppercase font-bold mb-1">Date d'application</span>
           <span className="font-bold text-gray-900">{currentDate} (00:00 GMT)</span>
         </div>
       </div>
 
-      {/* PRÉAMBULE */}
       <div className="mt-8 mb-12 p-6 bg-gray-50 border-l-4 border-gray-900 text-sm text-gray-800 text-justify font-serif shadow-sm leading-relaxed">
         <strong className="block mb-2 font-bold uppercase text-xs tracking-wider text-gray-500">
           Préambule
@@ -74,7 +68,6 @@ export const ContentHeader = () => {
   );
 };
 
-// 1. Article I (FILLER - Définitions)
 export const CONTENT_ART_1 = (
   <>
     <h3 className={TITLE_STYLE}>Article I. Définitions et Interprétation</h3>
@@ -91,7 +84,6 @@ export const CONTENT_ART_1 = (
   </>
 );
 
-// 2. Article II (MISSION 5 : Date normale à convertir en Romain)
 export const CONTENT_ART_2 = (
   <>
     <h3 className={TITLE_STYLE}>Article II. Durée et Entrée en Vigueur</h3>
@@ -108,7 +100,6 @@ export const CONTENT_ART_2 = (
   </>
 );
 
-// 3. Article III (MISSION 21 : Pays "Grèce")
 export const CONTENT_ART_3 = (
   <>
     <h3 className={TITLE_STYLE}>Article III. Territorialité et Restrictions</h3>
@@ -125,7 +116,6 @@ export const CONTENT_ART_3 = (
   </>
 );
 
-// 4. Article IV (MISSION 1 : Faute "cadre constitutionnelle")
 export const CONTENT_ART_4 = (
   <>
     <h3 className={TITLE_STYLE}>Article IV. Conformité Légale</h3>
@@ -142,10 +132,8 @@ export const CONTENT_ART_4 = (
   </>
 );
 
-// 5. Article V (MISSION 10 : Hex Color #0D0D0D)
 export const CONTENT_ART_5 = (
   <>
-    {/* LE PIÈGE : Couleur du titre légèrement différente du noir standard */}
     <h3 style={{ color: '#0D0D0D' }} className="font-bold text-xl uppercase mt-16 mb-6 border-b-2 border-black pb-2 font-serif tracking-tight">
       Article V. Propriété Intellectuelle
     </h3>
@@ -162,7 +150,6 @@ export const CONTENT_ART_5 = (
   </>
 );
 
-// 6. Article VI (MISSION 19 : Devise 115 USD -> FRF 1975, SANS LE TAUX)
 export const CONTENT_ART_6 = (
   <>
     <h3 className={TITLE_STYLE}>Article VI. Limitation de Garantie</h3>
@@ -179,7 +166,6 @@ export const CONTENT_ART_6 = (
   </>
 );
 
-// 7. Article VII (MISSION 15 : Overlay ROUGE Confidentiel)
 export const CONTENT_ART_7 = (
   <>
     <h3 className={TITLE_STYLE}>Article VII. Politique de Confidentialité</h3>
@@ -191,7 +177,6 @@ export const CONTENT_ART_7 = (
         </p>
       </div>
       
-      {/* ÉLÉMENT BLOQUANT ROUGE - CONFIDENTIEL */}
       <div id="element-to-delete" className="absolute -inset-2 z-10 bg-red-50 border-2 border-red-600 flex flex-col items-center justify-center text-center p-4 shadow-md">
         <div className="font-bold text-red-900 text-sm uppercase tracking-widest mb-1">⚠ CONFIDENTIEL ⚠</div>
         <p className="text-xs text-red-800 font-mono">
@@ -202,7 +187,6 @@ export const CONTENT_ART_7 = (
   </>
 );
 
-// 8. Article VIII (MISSION 7 : Mot invisible FACULTATIF isolé après le point)
 export const CONTENT_ART_8 = (
   <>
     <h3 className={TITLE_STYLE}>Article VIII. Données Personnelles</h3>
@@ -214,14 +198,12 @@ export const CONTENT_ART_8 = (
       <p className="mb-4">
         <span className={SUB_TITLE}>Art VIII.2. Caractère de la collecte.</span>
         La fourniture des données marquées d'un astérisque est obligatoire pour l'exécution du contrat. La fourniture des autres champs mentionnés dans le formulaire d'inscription est optionnelle.
-        {/* PIÈGE : Blanc sur blanc, après le point final */}
         <span className="text-white select-text selection:bg-black selection:text-white"> FACULTATIVE</span>
       </p>
     </div>
   </>
 );
 
-// 9. Article IX (MISSION 12 : Acrostiche REFUS avec LISTE)
 export const CONTENT_ART_9 = (
   <>
     <h3 className={TITLE_STYLE}>Article IX. Motifs de Suspension</h3>
@@ -241,7 +223,6 @@ export const CONTENT_ART_9 = (
   </>
 );
 
-// 10. Article X (MISSION 17 : Clavier Cursed CONFIRMATION)
 export const CONTENT_ART_10 = (
   <>
     <h3 className={TITLE_STYLE}>Article X. Sécurité des Accès</h3>
@@ -258,8 +239,6 @@ export const CONTENT_ART_10 = (
   </>
 );
 
-// 11. Article XI (MISSION 13 : Lipogramme - Pas de lettre 'B')
-// Texte étendu, technique et pompeux, évitant soigneusement la lettre interdite.
 export const CONTENT_ART_11 = (
   <>
     <h3 className={TITLE_STYLE}>Article XI. Gestion des Aléas Techniques</h3>
@@ -276,8 +255,6 @@ export const CONTENT_ART_11 = (
   </>
 );
 
-// 12. Article XII (MISSION 3 : Compteur de mots = 25)
-// Beaucoup de blabla juridique avant la phrase clé.
 export const CONTENT_ART_12 = (
   <>
     <h3 className={TITLE_STYLE}>Article XII. Force Majeure et Résiliation</h3>
@@ -290,9 +267,6 @@ export const CONTENT_ART_12 = (
         <span className={SUB_TITLE}>Art XII.2. Condition Suspensive.</span>
         Nonobstant les dispositions précédentes, la validité de l'accord cadre est conditionnée par la lecture et l'acceptation expresse de la phrase interrogative suivante :
       </p>
-      {/* Phrase : "L'utilisateur s'engage-t-il à respecter l'ensemble des sous-clauses, c'est-à-dire celles d'aujourd'hui et d'avant-hier ?"
-          Compte (si apostrophe/tiret = séparateur) : 25 mots.
-      */}
       <div className="pl-6 border-l-[3px] border-gray-400 italic text-gray-900 text-sm my-4 font-serif select-none py-2 bg-gray-50">
         "L'utilisateur reconnaît-il l'obligation d'appliquer l'intégralité des sous-clauses dites “en-vigueur”, d'aujourd'hui, d'avant-hier et d'ores-et-déjà existantes ?"
       </div>
@@ -303,8 +277,6 @@ export const CONTENT_ART_12 = (
   </>
 );
 
-// 13. Article XIII (MISSION 18 : Système d'équations -> X=3)
-// Contexte financier lourd.
 export const CONTENT_ART_13 = (
   <>
     <h3 className={TITLE_STYLE}>Article XIII. Intérêts Moratoires et Pénalités</h3>
@@ -332,8 +304,6 @@ export const CONTENT_ART_13 = (
   </>
 );
 
-// 14. Article XIV (MISSION 24 : Cémantix "DROIT" / "JUSTICE")
-// Niveau plus difficile : Concepts abstraits et symboles uniquement.
 export const CONTENT_ART_14 = (
   <>
     <h3 className={TITLE_STYLE}>Article XIV. Compétence Matérielle et Sémantique</h3>
@@ -359,7 +329,6 @@ export const CONTENT_ART_14 = (
   </>
 );
 
-// Texte très sérieux sur l'arbitrage.
 export const CONTENT_ART_15 = (
   <>
     <h3 className={TITLE_STYLE}>Article XV. Procédure de Résolution Amiable</h3>
@@ -371,7 +340,6 @@ export const CONTENT_ART_15 = (
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XV.2. Clause de Déchéance.</span>
         Le médiateur se réserve le droit de mettre fin aux pourparlers si l'une des parties fait preuve d'une mauvaise foi caractérisée, adopte une posture d'obstruction systématique, ou manifeste un comportement que l'expert qualifierait d'
-        {/* PIÈGE : Mot ridicule avec police ridicule au milieu d'une phrase sérieuse */}
         <span style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }} className="text-xs mx-1 font-bold text-gray-900">
           UBUESQUE
         </span>
@@ -381,8 +349,6 @@ export const CONTENT_ART_15 = (
   </>
 );
 
-// 16. Article XVI (MISSION 22 : Suite R-R-S-L-I-N-[T])
-// AUCUN INDICE. Le joueur doit deviner seul que c'est la dernière lettre des mois.
 export const CONTENT_ART_16 = (
   <>
     <h3 className={TITLE_STYLE}>Article XVI. Calendrier de Facturation et Cycles</h3>
@@ -405,8 +371,6 @@ export const CONTENT_ART_16 = (
   </>
 );
 
-// 17. Article XVII (FILLER - Maintenance)
-// Texte rallongé.
 export const CONTENT_ART_17 = (
   <>
     <h3 className={TITLE_STYLE}>Article XVII. Interruption Technique et Maintenance</h3>
@@ -423,7 +387,6 @@ export const CONTENT_ART_17 = (
   </>
 );
 
-// 18. Article XVIII (MISSION 11 : Ordre Logique B-D-C-A)
 export const CONTENT_ART_18 = (
   <>
     <h3 className={TITLE_STYLE}>Article XVIII. Indemnisation et Continuité de Service</h3>
@@ -457,8 +420,6 @@ export const CONTENT_ART_18 = (
   </>
 );
 
-// 19. Article XIX (FILLER - Modifications)
-// Texte rallongé.
 export const CONTENT_ART_19 = (
   <>
     <h3 className={TITLE_STYLE}>Article XIX. Évolution des Conditions Générales</h3>
@@ -475,8 +436,6 @@ export const CONTENT_ART_19 = (
   </>
 );
 
-// 20. Article XX (FILLER - Nullité)
-// Texte rallongé.
 export const CONTENT_ART_20 = (
   <>
     <h3 className={TITLE_STYLE}>Article XX. Stipulations Diverses et Divisibilité</h3>
@@ -492,8 +451,6 @@ export const CONTENT_ART_20 = (
     </div>
   </>
 );
-
-// data/content.tsx
 
 export const CONTENT_ART_21 = (
   <>
@@ -519,32 +476,19 @@ export const CONTENT_ART_21 = (
   </>
 );
 
-// 22. Article XXII (MISSION 22 : Nombres Premiers - STYLE CHECKBOX)
 export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: string) => void }) => {
-  // État des cases cochées
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
-
-  // Liste des nombres affichés (1 à 12)
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  // Gestion du clic CORRIGÉE
   const toggleNumber = (num: number) => {
-    // 1. On calcule la nouvelle sélection basé sur l'état actuel 'selectedNumbers'
     let newSelection;
     
     if (selectedNumbers.includes(num)) {
-      // Si déjà coché, on l'enlève
       newSelection = selectedNumbers.filter(n => n !== num);
     } else {
-      // Sinon on l'ajoute et on trie
       newSelection = [...selectedNumbers, num].sort((a, b) => a - b);
     }
 
-    // 2. On met à jour l'affichage local (les cases cochées)
     setSelectedNumbers(newSelection);
-
-    // 3. On envoie la valeur au parent (Home) pour la validation
-    // C'est maintenant fait en dehors du callback de mise à jour, donc c'est valide.
     setInputValue(newSelection.join(","));
   };
 
@@ -553,7 +497,6 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
       <h3 className="font-bold text-xl uppercase mt-16 mb-6 text-gray-900 border-b-2 border-black pb-2 font-serif tracking-tight">
         Article XXII. Modulation Tarifaire
       </h3>
-      {/* ... Le reste du JSX ne change pas ... */}
       <div className="text-[15px] text-gray-800 text-justify leading-relaxed font-serif">
         <p className="mb-4">
           <span className="font-bold text-gray-900 mr-2">Art XXII.1. Algorithme de Remise.</span>
@@ -564,7 +507,6 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
           Veuillez activer, dans la grille ci-dessous, <strong>exclusivement</strong> les options correspondant à des entiers naturels supérieurs à 1 n'admettant exactement que deux diviseurs entiers et positifs (1 et eux-mêmes).
         </p>
         
-        {/* FORMULAIRE STYLE PAPIER */}
         <div className="my-6 p-4 border border-gray-400 bg-white">
           <div className="border-b border-gray-300 pb-2 mb-4 text-xs font-bold uppercase tracking-wider text-gray-500">
             Annexe B - Options Tarifaires
@@ -576,14 +518,12 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
                 key={num} 
                 className="flex items-center space-x-3 cursor-pointer group select-none"
               >
-                {/* La vraie Checkbox */}
                 <input 
                   type="checkbox" 
                   className="w-5 h-5 border-2 border-gray-400 rounded-sm accent-black cursor-pointer"
                   checked={selectedNumbers.includes(num)}
                   onChange={() => toggleNumber(num)}
                 />
-                {/* Le numéro */}
                 <span className={`font-mono text-base group-hover:text-black ${selectedNumbers.includes(num) ? 'font-bold text-black' : 'text-gray-600'}`}>
                   {num < 10 ? `0${num}` : num}
                 </span>
@@ -600,7 +540,6 @@ export const InteractiveArticle22 = ({ setInputValue }: { setInputValue: (v: str
   );
 };
 
-// 23. Article XXIII (FILLER - Confidentialité)
 export const CONTENT_ART_23 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXIII. Confidentialité</h3>
@@ -617,7 +556,6 @@ export const CONTENT_ART_23 = (
   </>
 );
 
-// 24. Article XXIV (MISSION 4 : Texte 1px, non-sélectionnable)
 export const CONTENT_ART_24 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXIV. Mentions Légales</h3>
@@ -629,7 +567,6 @@ export const CONTENT_ART_24 = (
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XXIV.2. Hébergement.</span>
         Les données sont hébergées sur des serveurs sécurisés situés en Union Européenne. Directeur de la publication : M. Admin.
-        {/* PIÈGE : 1px, non sélectionnable, non copiable */}
         <span className="text-[2px] text-gray-300 ml-1 select-none pointer-events-none">
           Je certifie avoir une excellente vue.
         </span>
@@ -638,8 +575,6 @@ export const CONTENT_ART_24 = (
   </>
 );
 
-// 25. Article XXV (MISSION 23 : Musique "LETTRE A ELISE")
-// SVG Ajusté pour Mi-Re#-Mi...
 export const CONTENT_ART_25 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXV. Propriété Sonore</h3>
@@ -649,10 +584,6 @@ export const CONTENT_ART_25 = (
         L'identité sonore de l'attente téléphonique est une œuvre protégée. L'Utilisateur reconnaît la séquence mélodique suivante comme étant la propriété exclusive de l'Opérateur :
       </p>
       <div className="flex justify-center my-6 border border-gray-300 p-6 bg-white shadow-sm">
-        {/* SVG : Lettre à Élise (Mi - Ré# - Mi - Ré# - Mi - Si - Ré - Do - La) */}
-        {/* Position Y : Ligne du haut = 10, Ligne du bas = 50. */}
-        {/* Mi (aigu) est dans le 4e interligne (y=15 approx) */}
-        {/* Ré# est sur la 4e ligne (y=20 approx) */}
         <svg width="300" height="60" viewBox="0 0 300 60">
            {/* Portée */}
            <line x1="0" y1="10" x2="300" y2="10" stroke="#999" strokeWidth="1"/>
@@ -661,16 +592,15 @@ export const CONTENT_ART_25 = (
            <line x1="0" y1="40" x2="300" y2="40" stroke="#999" strokeWidth="1"/>
            <line x1="0" y1="50" x2="300" y2="50" stroke="#999" strokeWidth="1"/>
            
-           {/* Notes */}
-           {/* MI (4e interligne) */} <circle cx="30" cy="15" r="3.5" fill="black"/>
-           {/* RE# (4e ligne) */}     <circle cx="60" cy="20" r="3.5" fill="black"/> <text x="50" y="24" fontSize="12" fontFamily="serif">♯</text>
-           {/* MI */}                 <circle cx="90" cy="15" r="3.5" fill="black"/>
-           {/* RE# */}                <circle cx="120" cy="20" r="3.5" fill="black"/> <text x="110" y="24" fontSize="12" fontFamily="serif">♯</text>
-           {/* MI */}                 <circle cx="150" cy="15" r="3.5" fill="black"/>
-           {/* SI (3e ligne) */}      <circle cx="180" cy="30" r="3.5" fill="black"/>
-           {/* RE (nat) (4e ligne) */} <circle cx="210" cy="20" r="3.5" fill="black"/> <text x="200" y="24" fontSize="12" fontFamily="serif">♮</text>
-           {/* DO (3e interligne) */} <circle cx="240" cy="25" r="3.5" fill="black"/>
-           {/* LA (2e interligne) */} <circle cx="270" cy="35" r="3.5" fill="black"/>
+           <circle cx="30" cy="15" r="3.5" fill="black"/>
+           <circle cx="60" cy="20" r="3.5" fill="black"/> <text x="50" y="24" fontSize="12" fontFamily="serif">♯</text>
+           <circle cx="90" cy="15" r="3.5" fill="black"/>
+           <circle cx="120" cy="20" r="3.5" fill="black"/> <text x="110" y="24" fontSize="12" fontFamily="serif">♯</text>
+           <circle cx="150" cy="15" r="3.5" fill="black"/>
+           <circle cx="180" cy="30" r="3.5" fill="black"/>
+           <circle cx="210" cy="20" r="3.5" fill="black"/> <text x="200" y="24" fontSize="12" fontFamily="serif">♮</text>
+           <circle cx="240" cy="25" r="3.5" fill="black"/>
+           <circle cx="270" cy="35" r="3.5" fill="black"/>
         </svg>
       </div>
       <p className="text-xs text-gray-500 text-center italic mb-4">
@@ -680,7 +610,6 @@ export const CONTENT_ART_25 = (
   </>
 );
 
-// 26. Article XXVI (MISSION 16 : Image "CONFIDENTIEL")
 export const CONTENT_ART_26 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXVI. Niveaux de Classification</h3>
@@ -706,7 +635,6 @@ export const CONTENT_ART_26 = (
   </>
 );
 
-// 27. Article XXVII (MISSION 25 : Labyrinthe Logique -> "ACCORD")
 export const CONTENT_ART_27 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXVII. Consentement Réciproque et Paradoxal</h3>
@@ -716,7 +644,6 @@ export const CONTENT_ART_27 = (
         La validation finale de ce dossier implique une capacité de discernement cognitif certifiée. L'Utilisateur est invité à analyser l'instruction conditionnelle suivante pour déterminer l'unique mention autorisée :
       </p>
       
-      {/* LE TEXTE INFERNAL - Version "Mélangeur de mots" */}
       <div className="bg-gray-50 border-l-4 border-gray-900 p-6 font-medium my-4 leading-loose shadow-inner text-sm text-justify font-serif text-gray-900 select-none">
         "Il est strictement défendu de saisir la mention ACCORD, à moins qu'il ne soit établi que vous ne rejetez pas l'idée de ne pas refuser le REJET. 
         <br/><br/>
@@ -732,7 +659,6 @@ export const CONTENT_ART_27 = (
   </>
 );
 
-// 28. Article XXVIII (Erreur XXVIII.3)
 export const CONTENT_ART_28 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXVIII. Clause Résolutoire</h3>
@@ -741,7 +667,6 @@ export const CONTENT_ART_28 = (
         <span className={SUB_TITLE}>Art XXVIII.1. Manquement.</span>
         En cas d'inexécution par l'une des parties de ses obligations, le contrat sera résolu de plein droit 15 jours après l'envoi d'une mise en demeure restée infructueuse.
       </p>
-      {/* PIÈGE : Saut de numérotation direct à .3 */}
       <p className="mb-4">
         <span className={SUB_TITLE}>Art XXVIII.3. Effets.</span>
         La résolution entraîne la suspension immédiate des accès et la suppression définitive des données, sans préjudice des dommages et intérêts éventuels.
@@ -750,7 +675,6 @@ export const CONTENT_ART_28 = (
   </>
 );
 
-// 29. Article XXIX (MISSION 20 : Reykjavik -> BIKF)
 export const CONTENT_ART_29 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXIX. Loi Applicable et Juridiction</h3>
@@ -767,7 +691,6 @@ export const CONTENT_ART_29 = (
   </>
 );
 
-// 30. Article XXX (MISSION 9 : ROT47 format Licence Key)
 export const CONTENT_ART_30 = (
   <>
     <h3 className={TITLE_STYLE}>Article XXX. Signature Cryptographique</h3>

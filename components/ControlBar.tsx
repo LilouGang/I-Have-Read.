@@ -15,14 +15,12 @@ interface ControlBarProps {
 export default function ControlBar({ rules, validateLevel, buttonText, level }: ControlBarProps) {
   
   const sortedRules = [...rules].sort((a, b) => {
-    // 1. Les validés partent en bas
     const aIsDone = a.status === 'valid';
     const bIsDone = b.status === 'valid';
 
     if (aIsDone && !bIsDone) return 1;
     if (!aIsDone && bIsDone) return -1;
 
-    // 2. Tri par ID décroissant (le plus récent en haut)
     return b.id - a.id;
   });
 
@@ -31,7 +29,6 @@ export default function ControlBar({ rules, validateLevel, buttonText, level }: 
 
       <div className="flex flex-col md:flex-row items-start justify-between gap-4">
         
-        {/* LISTE DES RÈGLES */}
         <div className="flex-1 w-full flex flex-col gap-3">
           {sortedRules.map((rule) => (
             <div 
@@ -46,7 +43,6 @@ export default function ControlBar({ rules, validateLevel, buttonText, level }: 
                 } 
               `}
             >
-              {/* Icône */}
               <div className={`
                 flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold border shrink-0
                 ${rule.status === 'valid' ? 'bg-green-200 border-green-300 text-green-800' : 
@@ -56,15 +52,12 @@ export default function ControlBar({ rules, validateLevel, buttonText, level }: 
                 {rule.status === 'valid' ? '✓' : rule.id} 
               </div>
               
-              {/* Texte (limité en hauteur au cas où, mais h-24 est large) */}
               <span className={`line-clamp-3 ${rule.status === 'valid' ? 'line-through decoration-green-300' : ''}`}>
                 {rule.text}
               </span>
             </div>
           ))}
         </div>
-
-        {/* BOUTON */}
         <div className="shrink-0 md:w-auto w-full">
           <button 
             onClick={validateLevel}

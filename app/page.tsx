@@ -5,11 +5,7 @@ import ActionPanel from '@/components/ActionPanel';
 import ControlBar from '@/components/ControlBar';
 import Logo from '@/components/Logo';
 import FleeingTitle from '@/components/FleeingTitle';
-
-// Import de l'icône Instagram uniquement (puisque ton logo sera une image)
 import { Instagram } from 'lucide-react';
-
-// Import de TOUS les contenus
 import { 
   ContentHeader, 
   CONTENT_ART_1, CONTENT_ART_2, CONTENT_ART_3, CONTENT_ART_4, CONTENT_ART_5,
@@ -36,7 +32,6 @@ export default function Home() {
   const [inputValue, setInputValue] = useState<string>('');
   const docRef = useRef<HTMLDivElement>(null); 
 
-  // --- SÉCURITÉ : CTRL+F autorisé seulement au niveau 7 ---
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
@@ -49,7 +44,6 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [level]);
 
-  // --- GESTION DES RÈGLES ---
   const addNewRule = (lvl: number) => {
     let newRuleText = "";
     switch(lvl) {
@@ -85,7 +79,6 @@ export default function Home() {
     }
   };
 
-  // --- VALIDATION ---
   const validateLevel = () => {
     let isSuccess = false;
 
@@ -134,54 +127,39 @@ export default function Home() {
     if (isSuccess) nextLevel();
   };
 
-  // --- PASSAGE AU NIVEAU SUIVANT ---
   const nextLevel = () => {
     const nextLvl = level + 1;
     setLevel(nextLvl);
     setInputValue(''); 
     
-    // On n'ajoute une règle que si on est encore dans le jeu (<= 25).
     if (nextLvl <= 25) {
       addNewRule(nextLvl);
     }
   };
 
-  // --- RENDU ---
   return (
     <main className="h-screen w-screen overflow-hidden bg-[#F3F4F6] font-sans text-gray-800 flex flex-col">
-      {/* NAVBAR */}
       <nav className="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm shrink-0">
-        
-        {/* LOGO GAUCHE */}
         <div className="w-1/3"><Logo /></div>
-
-        {/* TITRE CENTRAL */}
         <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full max-w-lg">
              <FleeingTitle />
         </div>
-
-        {/* LIENS DROITE (TON LOGO + INSTA) */}
         <div className="w-1/3 flex justify-end items-center gap-6">
-            
-            {/* 1. TON LOGO PERSO (Portfolio) */}
-            {/* Mettre l'image 'logo.png' dans le dossier /public */}
             <a 
-              href="https://killianlacaque.vercel.app/" // <-- LIEN PORTFOLIO
+              href="https://killianlacaque.vercel.app/"
               target="_blank" 
               rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition-opacity transform hover:scale-110"
               title="Portfolio"
             >
               <img 
-                src="/favicon.png"  // <-- CHANGE CE NOM PAR LE NOM DE TON FICHIER DANS 'public'
+                src="/favicon.png"
                 alt="Portfolio" 
                 className="w-6 h-6 object-contain" 
               />
             </a>
-
-            {/* 2. INSTAGRAM */}
             <a 
-              href="https://www.instagram.com/killian.lcq_/" // <-- LIEN INSTA
+              href="https://www.instagram.com/killian.lcq_/"
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-pink-600 transition-colors transform hover:scale-110"
@@ -194,11 +172,7 @@ export default function Home() {
 
       <div className="flex-1 flex items-center justify-center p-6 pb-12 overflow-hidden">
         
-        {/* --- CONDITION D'AFFICHAGE : JEU vs FIN --- */}
-        
         {level > 25 ? (
-          
-          /* ÉCRAN DE FIN */
           <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in max-w-2xl w-full">
             
             <div className="w-24 h-px bg-gray-400"></div>
@@ -230,10 +204,7 @@ export default function Home() {
           </div>
 
         ) : (
-          /* LE JEU (Niveaux 0 à 25) */
           <div className="bg-white w-full max-w-5xl rounded-xl shadow-2xl overflow-hidden flex flex-col relative h-full max-h-[85vh]">
-            
-            {/* WINDOW HEADER */}
             <div className="bg-[#E5E7EB] px-4 py-2 border-b border-gray-300 flex items-center gap-2 sticky top-0 z-10 shrink-0 select-none">
                <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-[#FF5F57] border border-[#E0443E]"></div>
@@ -244,12 +215,8 @@ export default function Home() {
                 conditions_générales_d'utilisation.pdf
               </span>
             </div>
-
-            {/* SCROLLABLE CONTENT */}
             <div ref={docRef} className="overflow-y-auto h-full p-16 scroll-smooth bg-white">
               <div className="max-w-3xl mx-auto shadow-sm min-h-250 border border-gray-100 p-10 bg-white mb-8">
-                
-                {/* HEADLINE AVEC DATE DYNAMIQUE */}
                 <ContentHeader />
                 
                 <div className="space-y-12">
@@ -275,7 +242,6 @@ export default function Home() {
                   {CONTENT_ART_20}
                   {CONTENT_ART_21}
                   
-                  {/* Article 22 Interactif */}
                   <InteractiveArticle22 setInputValue={setInputValue} />
 
                   {CONTENT_ART_23}
@@ -288,7 +254,6 @@ export default function Home() {
                   {CONTENT_ART_30}
                 </div>
 
-                {/* FOOTER DOCUMENT */}
                 <div className="mt-32 pt-8 border-t border-gray-200 text-center">
                   <p className="text-[10px] text-gray-400 font-mono">
                     © 2025-2026 Killian Lacaque. Tous droits réservés. Reproduction interdite.<br/>
@@ -296,9 +261,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* ACTION PANEL */}
               <div className="pb-12 max-w-3xl mx-auto mt-4">
-                 {/* Cas particulier pour le niveau 14 */}
                  {level === 14 ? (
                    <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm text-center italic rounded-sm">
                      ⚠ Action requise : Veuillez effectuer votre sélection directement dans l'Article XXII ci-dessus.

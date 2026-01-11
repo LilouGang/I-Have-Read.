@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "I Have Read.",
     description:
-      "L’utilisation de ce service implique l’acceptation pleine et entière des présentes conditions.",
+      "Veuillez accepter les conditions d'utilisation.",
     type: "website",
     locale: "fr_FR",
     siteName: "I Have Read."

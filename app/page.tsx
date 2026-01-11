@@ -59,7 +59,7 @@ export default function Home() {
       case 10: newRuleText = "Infraction à la charte chromatique (Art. V)."; break;
       case 11: newRuleText = "Rupture de la chaîne de causalité (Art. XVIII)."; break;
       case 12: newRuleText = "Motif de suspension non spécifié (Art. IX)."; break;
-      case 13: newRuleText = "Intégrité alphabétique compromise (Art. XI)."; break;
+      case 13: newRuleText = "Intégrité alphabétique compromise (Art. XI.1)."; break;
       case 14: newRuleText = "Configuration tarifaire arithmétique invalide (Art. XXII)."; break;
       case 15: newRuleText = "Obstruction de l'interface utilisateur (Art. VII)."; break;
       case 16: newRuleText = "Défaut de visibilité par contraste (Art. XXVI)."; break;
@@ -93,9 +93,9 @@ export default function Home() {
       case 4: isSuccess = n === "JE CERTIFIE AVOIR UNE EXCELLENTE VUE"; break;
       case 5: isSuccess = c === "XIV/VII/MDCCLXXXIX"; break;
       case 6: isSuccess = n === "UBUESQUE"; break;
-      case 7: isSuccess = n.includes("VIII.2"); break;
+      case 7: isSuccess = n.includes("VIII"); break;
       case 8: isSuccess = n.includes("ELECTORALE"); break;
-      case 9: isSuccess = c === "CERTIFICAT_X509" || c === "[CERTIFICAT_X509]" || c === "CERTIFICAT X509"; break;
+      case 9: isSuccess = c === "CERTIFICAT_X509" || c === "CERTIFICAT X509"; break;
       case 10: isSuccess = c === "0D0D0D" || c === "#0D0D0D"; break;
       case 11: isSuccess = c.replace(/[- ]/g, "") === "BDCA"; break;
       case 12: isSuccess = n === "REFUS"; break;
@@ -106,7 +106,7 @@ export default function Home() {
       case 17: isSuccess = c === "CONFIRMATION"; break;
       case 18: isSuccess = c === "3"; break;
       case 19: isSuccess = c === "474.85" || c === "474,85" || c === "474"; break;
-      case 20: isSuccess = c === "BIKF"; break;
+      case 20: isSuccess = c === "BIRK"; break;
       case 21: isSuccess = n === "GRECE"; break;
       case 22: isSuccess = c === "T" || n === "JUILLET"; break;
       case 23: isSuccess = n.includes("LETTRE A ELISE") || n.includes("FUR ELISE"); break;

@@ -700,7 +700,7 @@ export const CONTENT_ART_30 = (
         L'intégrité du présent document est scellée par la clé de licence numérique suivante. Toute altération du code invalide le contrat.
       </p>
       <div className="font-mono text-sm text-gray-800 bg-gray-100 p-4 border-2 border-dashed border-gray-400 text-center tracking-widest font-bold my-6">
-        ,rt#%xuxrp%0)d_h.
+        rt#%xuxrp%0)d_h
       </div>
     </div>
   </>

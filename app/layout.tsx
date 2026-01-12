@@ -1,36 +1,29 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "I Have Read.",
-  description:
-    "Veuillez accepter les conditions d'utilisation.",
-  
-  applicationName: "I Have Read.",
-  authors: [{ name: "Killian Lacaque" }],
-  generator: "Next.js",
-  keywords: [
-    "conditions générales",
-    "CGS",
-    "terms of service",
-    "legal document",
-    "compliance",
-    "acceptation",
-    "lecture obligatoire",
-    "jeu expérimental",
-    "puzzle narratif",
-    "password game like",
-    "killian",
-    "lacaque",
-  ],
+const DATA_URL = "https://i-have-read.vercel.app"; 
 
-  openGraph: {
-    title: "I Have Read.",
-    description:
-      "Veuillez accepter les conditions d'utilisation.",
-    type: "website",
-    locale: "fr_FR",
-    siteName: "I Have Read."
+export const metadata: Metadata = {
+  title: {
+    default: "I Have Read",
+    template: "%s | I Have Read",
+  },
+  
+  description: "Veuillez accepter les conditions d'utilisation. Attention, des conditions sont requises...",
+
+  applicationName: "I Have Read.",
+  authors: [{ name: "Killian Lacaque", url: "https://killianlacaque.vercel.app" }],
+  generator: "Next.js",
+  keywords: ["jeu", "conditions générales", "puzzle", "énigme", "CGS", "terms of service", "killian", "lacaque"],
+  
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 
   verification: {

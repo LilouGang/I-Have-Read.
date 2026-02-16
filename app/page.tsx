@@ -146,7 +146,7 @@ export default function Home() {
         </div>
         <div className="w-1/3 flex justify-end items-center gap-6">
             <a 
-              href="https://killianlacaque.vercel.app/"
+              href="https://killianlacaque.com/"
               target="_blank" 
               rel="noopener noreferrer"
               className="opacity-60 hover:opacity-100 transition-opacity transform hover:scale-110"

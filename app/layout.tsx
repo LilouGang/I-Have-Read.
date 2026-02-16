@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Veuillez accepter les conditions d'utilisation. Attention, des conditions sont requises...",
 
   applicationName: "I Have Read.",
-  authors: [{ name: "Killian Lacaque", url: "https://killianlacaque.vercel.app" }],
+  authors: [{ name: "Killian Lacaque", url: "https://killianlacaque.com" }],
   generator: "Next.js",
   keywords: ["jeu", "conditions générales", "puzzle", "énigme", "CGS", "terms of service", "killian", "lacaque"],
   
